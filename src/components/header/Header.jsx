@@ -1,40 +1,22 @@
-import { Menu, Segment } from "semantic-ui-react";import { createMedia } from "@artsy/fresnel";
+import { createMedia } from "@artsy/fresnel";
 import React from "react";
+import { Container, Icon, Image, Menu, Sidebar } from "semantic-ui-react";
 
-import { Container, Icon, Image,Menu, Sidebar } from "semantic-ui-react";
-
-
-//          <div>
-//         <Menu inverted stackable> //stackable-@ resposiva sarqum
-//           <Menu.Item name="home" active={true} />
-//           <Menu.Item name="messages" active={false} />
-//           <Menu.Item name="review" active={false} />
-//           <Menu.Menu position="right">
-//             <Menu.Item name="log in" active={false} />
-//           </Menu.Menu>
-          
-//         </Menu>
-        const AppMedia = createMedia({
+const AppMedia = createMedia({
   breakpoints: {
     mobile: 320,
     tablet: 768,
     computer: 992,
     largeScreen: 1200,
-    widescreen: 1920
-  }
+    widescreen: 1920,
+  },
 });
 
 const { Media, MediaContextProvider } = AppMedia;
 
 const NavBarMobile = (props) => {
-  const {
-    children,
-    leftItems,
-    onPusherClick,
-    onToggle,
-    rightItems,
-    visible
-  } = props;
+  const { children, leftItems, onPusherClick, onToggle, rightItems, visible } =
+    props;
 
   return (
     <Sidebar.Pushable>
@@ -95,7 +77,7 @@ const NavBarDesktop = (props) => {
 
 class NavBar extends React.Component {
   state = {
-    visible: false
+    visible: false,
   };
 
   handlePusher = () => {
@@ -107,7 +89,7 @@ class NavBar extends React.Component {
   handleToggle = () => this.setState({ visible: !this.state.visible });
 
   render() {
-    const {leftItems, rightItems } = this.props;
+    const { leftItems, rightItems } = this.props;
     const { visible } = this.state;
 
     return (
@@ -119,7 +101,7 @@ class NavBar extends React.Component {
             onToggle={this.handleToggle}
             rightItems={rightItems}
             visible={visible}
-          />
+          ></NavBarMobile>
         </Media>
 
         <Media greaterThan="mobile">
@@ -132,21 +114,21 @@ class NavBar extends React.Component {
 
 const leftItems = [
   { as: "a", content: "Home", key: "home" },
-  { as: "a", content: "Users", key: "users" }
+  { as: "a", content: "Users", key: "users" },
 ];
 const rightItems = [
   { as: "a", content: "Login", key: "login" },
-  { as: "a", content: "Register", key: "register" }
+  { as: "a", content: "Register", key: "register" },
 ];
 
-function Header(){
-    return(
-        <MediaContextProvider>
-        <NavBar leftItems={leftItems} rightItems={rightItems}>
-          <Image src="https://react.semantic-ui.com/images/wireframe/paragraph.png" />
-        </NavBar>
-      </MediaContextProvider>
-    )
+function Header() {
+  return (
+    <MediaContextProvider>
+      <NavBar leftItems={leftItems} rightItems={rightItems}>
+        <Image src="https://react.semantic-ui.com/images/wireframe/paragraph.png" />
+      </NavBar>
+    </MediaContextProvider>
+  );
 }
 
-export  default Header
+export default Header;
