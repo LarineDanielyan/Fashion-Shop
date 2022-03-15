@@ -1,6 +1,7 @@
-import { createMedia } from "@artsy/fresnel";
 import React from "react";
+import { createMedia } from "@artsy/fresnel";
 import { Container, Icon, Image, Menu, Sidebar } from "semantic-ui-react";
+import { Link } from "react-router-dom";
 
 const AppMedia = createMedia({
   breakpoints: {
@@ -11,7 +12,6 @@ const AppMedia = createMedia({
     widescreen: 1920,
   },
 });
-
 const { Media, MediaContextProvider } = AppMedia;
 
 const NavBarMobile = (props) => {
@@ -32,7 +32,7 @@ const NavBarMobile = (props) => {
       <Sidebar.Pusher
         dimmed={visible}
         onClick={onPusherClick}
-        style={{ minHeight: "100vh" }}
+        style={{ minHeight: "15vh" }}
       >
         <Menu fixed="top" inverted>
           <Menu.Item>
@@ -93,7 +93,7 @@ class NavBar extends React.Component {
     const { visible } = this.state;
 
     return (
-      <div>
+      <>
         <Media at="mobile">
           <NavBarMobile
             leftItems={leftItems}
@@ -107,20 +107,20 @@ class NavBar extends React.Component {
         <Media greaterThan="mobile">
           <NavBarDesktop leftItems={leftItems} rightItems={rightItems} />
         </Media>
-      </div>
+      </>
     );
   }
 }
 
 const leftItems = [
-  { as: "a", content: "Home", key: "home" },
-  { as: "a", content: "Users", key: "users" },
+  { as: Link, to: "/", content: "Home", key: "home" },
+  { as: Link, to: "/products", content: "Products", key: "products" },
+  { as: Link, to: "/review", content: "Review", key: "review" },
 ];
 const rightItems = [
   { as: "a", content: "Login", key: "login" },
   { as: "a", content: "Register", key: "register" },
 ];
-
 function Header() {
   return (
     <MediaContextProvider>
