@@ -1,18 +1,14 @@
 import Cards from "../card/Cards";
+import Slide from "../slider/Slides.jsx";
+import slidesData from "../../services/slideData.js";
 import "../home/home.css";
-import Slides from "../slider/Slides";
-import { useAuth0 } from "@auth0/auth0-react";
-import slidesData from "../../services/slideData";
 
-
-function Home ()  {
-    
-    return (
-        <div className="home ui container">
-            <Slides slides={slidesData()} />
-           <Cards />
-        </div>
-    );
+function Home() {
+  return (
+    <div className="home ui container">
+      <Slide slides={slidesData()} />
+      <Cards />
+    </div>
+  );
 }
-
 export default Home;

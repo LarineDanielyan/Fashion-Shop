@@ -1,5 +1,4 @@
-/*main in start*/
-/* .App {
+.App {
   text-align: center;
 }
 
@@ -26,7 +25,7 @@
 }
 
 .App-link {
-  color: #61dafb;
+  color: #0f1618;
 }
 
 @keyframes App-logo-spin {
@@ -36,14 +35,7 @@
   to {
     transform: rotate(360deg);
   }
-} */
-/*main in start*/
-
-/*slider*/
-/* .App {
-  max-width: 600px;
-  margin: 0 auto;
-  margin-top: 50px;
-} */
-
-/*slider end*/
+}
+.main{
+  min-height: calc(100% - 300px);
+}
