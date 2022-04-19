@@ -22,7 +22,7 @@ import {
   SENT,
   DONE,} from "../../services/constants";
 import DataTable from "../dataTable/DataTable";
-import DataTableForUsers from "../dataTable/DataTable"; 
+import UserOrdersTable from "../dataTable/UserOrdersTable"; 
 
 function Dashboard() {
   const { error, isAuthenticated, isLoading, user, getAccessTokenSilently } =
@@ -141,7 +141,7 @@ function Dashboard() {
           />
         </>
       ) : (
-        <DataTableForUsers list={orderList} />
+        <UserOrdersTable list={orderList} />
       )}
     </div>
   );

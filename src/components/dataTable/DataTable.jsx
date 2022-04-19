@@ -44,83 +44,76 @@ function DataTable({ list, uploadImg }) {
   }
   console.log("",productsByPage)
   return (
-    <>
-      {productsByPage &&
-        productsByPage.length > 0 &&
-        productsByPage.map((item) => {
-          return (
+<div>
+    {list &&
+      list.length > 0 &&
+      list.map((item) => {
+        console.log(item);
+        return (
+          <>
             <Grid className="grid-table" key={nanoid()}>
               <Grid.Row>
-                {/* <Grid.Column width="2">
-                  <Segment.Inline>{item.id}</Segment.Inline>
-                </Grid.Column> */}
-                <Grid.Column width="5">
+                <Grid.Column width="2">
+                  <Segment.Inline className="productId">{`N ${item.id}`}</Segment.Inline>
+                </Grid.Column>
+                <Grid.Column width="3">
                   <Segment.Inline>
                     <Image
                       avatar
                       className="product-icon"
-                      src={
-                        item.img[item.img.length - 1]?.imagePath || logo
-                      }
+                      src={item.img[item.img.length - 1]?.imagePath || logo}
                     />
-
-                    <Segment.Inline>{item.name}</Segment.Inline>
-                    <Segment.Inline>
-                      {item.price}
-                      <span className="currency">{item.currency}</span>
-                    </Segment.Inline>
                   </Segment.Inline>
                 </Grid.Column>
-                <Grid.Column width="4" className="image-upload-form">
-                  <Segment.Inline >
-                    {/* <List.Content > */}
-                      {/* <List.Header > </List.Header> */}
-
-                      <form 
+                <Grid.Column width="2">
+                  <Segment.Inline>
+                    <List.Header>{item.name} </List.Header>
+                    <div className="price">
+                      {item.price} {item.currency}
+                    </div>
+                  </Segment.Inline>
+                </Grid.Column>
+                <Grid.Column width="6">
+                  <Segment.Inline>
+                    <List.Content>
+                      <Segment.Inline>{item.orderStatus}</Segment.Inline>
+                      <form
                         onSubmit={(e) => {
                           e.preventDefault();
                           uploadImg(imgFile, item.id);
                         }}
                       >
-                        {/* <Segment.Inline> */}
-                          <label htmlFor="file-input" className="img-icon">
-                            <Icon
-                              className="btn-icon"
-                              color="green"
-                              name="images"
-                            />
-                          </label>
-                          <input
-                            type="file"
-                            id="file-input"
-                            onChange={onChange}
-                          />
-                          <Button className="btn-upload" type="submit">
-                            <Icon
-                              className="btn-icon"
-                              color="green"
-                              name="upload"
-                            />
-                          </Button>
-                        {/* </Segment.Inline> */}
+                        <label className="upload" htmlFor ="file-input">
+                        <Icon className="iconUpload" name="images" />
+                        </label>
+                        <input
+                          id = "file-input"
+                          className="upload imgBtn"
+                          type="file"
+                          onChange={(e)=>onChange(e)}
+                        ></input>
+                        <button type="submit" className="upload">
+                        <Icon className="upload iconUpload" name="upload" />
+                        </button>
                       </form>
-                    {/* </List.Content> */}
+                    </List.Content>
                   </Segment.Inline>
                 </Grid.Column>
               </Grid.Row>
             </Grid>
-          );
-        })}
-      <div className="pagination-container">
-        {/* semantic pagination */}
+          </>
+        );
+      })}
+       <div className="pagination-container">
+         {/* semantic pagination */}
         <Pagination
-          defaultActivePage={1}
-          secondary
-          onPageChange={goToPage}
+           defaultActivePage={1}
+           secondary
+           onPageChange={goToPage}
           totalPages={Math.ceil(result.length / pageDevider)}
-        />
-      </div>
-    </>
-  );
+       />
+       </div>
+  </div>
+);
 }
 export default DataTable;

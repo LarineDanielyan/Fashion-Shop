@@ -1,14 +1,5 @@
 import React, { useEffect, useState } from "react";
-
-import { useForm } from "react-hook-form";
-import {
-  Form,
-  Input,
-  TextArea,
-  Button,
-  Select,
-  Radio,
-} from "semantic-ui-react";
+import {Form,Input, Radio} from "semantic-ui-react";
 
 const options = [
   { key: "m", text: "Male", value: "male" },
@@ -23,7 +14,6 @@ const FormFieldError = ({ userName, changeOptions }) => {
   }
   return (
     <Form>
-      {/* <Form.Group widths='equal'> */}
       <Form.Field
         id="form-input-control-full-name"
         control={Input}

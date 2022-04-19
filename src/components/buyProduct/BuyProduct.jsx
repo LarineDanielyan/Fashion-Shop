@@ -31,16 +31,29 @@ function BuyProduct({ productInfo, item }) {
       console.log(error);
     }
   }
+  useEffect(()=>{
+    resetOptions()
+  },[open])
   useEffect(() => {
+    console.log("disable",disable)
     let status = false;
     for(let key in options){
-      console.log("options[key]",options[key]);
+      console.log(key,options[key]);
       if(!options[key] ){
         status = true;
       }
     }
       setDisable(status);
   }, [options]);
+
+  function resetOptions(){
+    for(let key in options){
+      console.log(key,options[key]);
+      if(key != "paymentMethod" ){
+        options[key]="";
+      }
+    }
+  }
   function changeOptions(prop) {
     console.log("prop", prop);
     setOptions({ ...options, ...prop });
@@ -51,7 +64,11 @@ console.log("image",image)
     <Modal
       className="custom-modal"
       onClose={() => setOpen(false)}
-      onOpen={() => setOpen(true)}
+      onOpen={() =>{
+        // setDisable(true)
+        setOpen(true)
+      
+      } }
       open={open}
       trigger={
         <Button color="green" inverted floated="right">
@@ -61,16 +78,14 @@ console.log("image",image)
     >
       <Modal.Content image>
         <Image
-          size="medium"
-            src={
-              image && image.length>0 ? image.imagePath:logo
-          }
+          size="small"
+          src= {image?image: logo} 
           wrapped
         />
         <Modal.Description>
           <Header>{name}</Header>
           <p>{description}</p>
-          <p>{price + "$"}</p>
+          <p>{price + "AMD"}</p>
         </Modal.Description>
 
         <BuyForm userName={user.name} changeOptions={changeOptions} />
@@ -87,7 +102,9 @@ console.log("image",image)
               labelPosition="right"
               icon="checkmark"
               onClick={() => {
+                debugger
                 setOpen(false);
+                // setDisable(true);
                 confirmAction();
               }}
               positive

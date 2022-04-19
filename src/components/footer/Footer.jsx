@@ -1,5 +1,5 @@
 import { Container, Grid, Header, List, Segment } from "semantic-ui-react";
-
+import"./Footer.css";
 function Footer() {
   return (
     <div className="footer">

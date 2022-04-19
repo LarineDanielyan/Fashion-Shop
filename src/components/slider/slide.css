@@ -1,5 +1,5 @@
 #slide {
-    position: relative;
+    /* position: relative; */
     display: flex;
     height: 350px;
     min-height: 150px;
@@ -50,7 +50,7 @@ img {
     position: absolute;
     transform: translateY(-50%);
     top: 50%;
-    color: wheat;
+    color: rgb(55, 73, 57);
     transition:0.5s ease;
 }
 .ui.button{

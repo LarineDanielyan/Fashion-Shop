@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Grid, Segment, List, Image, Dropdown, Popup } from "semantic-ui-react";
 import logo from "../../img/logo.jpg";
 import "./dataTable.css";
-import Pagination from "../pagination/Pagination";
+// import Pagination from "../pagination/Pagination";
 
 
 function UserOrdersTable({list}){
@@ -70,14 +70,14 @@ function UserOrdersTable({list}){
             />
         );
       })}
-       <div className="pagination-container">
+       {/* <div className="pagination-container">
         <Pagination
           defaultActivePage={1}
           secondary
           onPageChange={goToPage}
           totalPages={Math.ceil(result.length / pageDevider)}
         />
-      </div>
+      </div> */}
   </>
   )
 }

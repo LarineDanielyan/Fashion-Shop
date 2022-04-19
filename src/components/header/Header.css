@@ -1,8 +1,16 @@
-/* .ui.fixed.menu.top {
-   // background-color: #E9967A;
-} */
+.ui.fixed.menu.top {
+    background-color: #495e4a;
+}
 .customHeader, .pusher {
     height: 60px;
+}
+.customHeader .pushable {
+    position: fixed;
+    z-index: 101;
+    margin: 0;
+    width: 100%;
+    height: auto;
+    overflow-x: visible;
 }
 
 .ui.mini.image, .ui.mini.images .image, .ui.mini.images img, .ui.mini.images svg {
@@ -11,9 +19,9 @@
     font-size: .78571429rem;
     border-radius: 50%;
 }
-.pushable {
+/* .pushable {
     overflow-x: visible;
-    }
+    } */
 .logoIcon{
     border-radius: 2px;
 }
