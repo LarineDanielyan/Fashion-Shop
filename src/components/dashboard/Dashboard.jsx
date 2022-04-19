@@ -3,54 +3,63 @@ import {
   getOrderByStatus,
   authoriseUser,
   getProducts,
+  getAllOrders,
   changeOrderStatus,
-  imgUpdate
+  imgUpdate,
 } from "../../services/api";
 import { useAuth0 } from "@auth0/auth0-react";
 import { domainName } from "../../config";
-import { Table, Icon, Message } from "semantic-ui-react";
+import {Message } from "semantic-ui-react";
 import { useEffect, useState } from "react";
 import AddProduct from "../products/AddProduct";
 import Tabs from "../tabs/Tabs";
-import { ADMIN, UNPAID } from "../../services/constants";
+import {
+  USER,
+  ADMIN,
+  PAID,
+  UNPAID,
+  PENDING,
+  SENT,
+  DONE,} from "../../services/constants";
 import DataTable from "../dataTable/DataTable";
-
-
-
+import DataTableForUsers from "../dataTable/DataTable"; 
 
 function Dashboard() {
-
-
   const { error, isAuthenticated, isLoading, user, getAccessTokenSilently } =
     useAuth0();
   const [orderList, setOrderList] = useState([]);
-
   const [adminData, setAdminData] = useState({});
   const [responseInfo, setResponseInfo] = useState("");
-
-
+  const { allProducts,  unpaidOrders,  sentOrders, paidOrders, allDoneOrders , allOrders,pendingOrders } = adminData;
+ 
   async function orderShow() {
     try {
       const token = await getAccessTokenSilently();
       let data = null;
-      // let productData=null;
-
       if (user && user[`${domainName}roles`].includes(ADMIN)) {
         const dataResult = await Promise.all([
           getProducts(),
+          getOrderByStatus(user.sub, token, PENDING),
           getOrderByStatus(user.sub, token, UNPAID),
+          getOrderByStatus(user.sub, token, SENT),
+          getOrderByStatus(user.sub, token, PAID),
+          getOrderByStatus(user.sub, token, DONE),
+          getAllOrders(user.sub, token),
         ]);
-          console.log("dataResult", dataResult);
-        if (dataResult && dataResult[1] && dataResult[1].status === 401)  {
+        if (dataResult && dataResult[1] && dataResult[1].status === 401) {
           const authorised = await authoriseUser(user, token);
         } else {
-         
-        setAdminData((adminData) => ({
-          ...adminData,
-          allProducts: dataResult[0],
-          pendingProducts: dataResult[1],
-        }));
-      }
+          setAdminData((adminData) => ({
+            ...adminData,
+            allProducts: dataResult[0],
+            pendingOrders: dataResult[1],
+            unpaidOrders: dataResult[2],
+            sentOrders:dataResult[3],
+            paidOrders:dataResult[4],
+            allDoneOrders: dataResult[5],
+            allOrders: dataResult[6],
+          }));
+        }
       } else {
         data = await getOrders(user.sub, token);
         if (data && Array.isArray(data)) {
@@ -58,7 +67,7 @@ function Dashboard() {
         } else if (data && data.status === 401) {
           const authorised = await authoriseUser(user, token);
         } else {
-          console.log("paka");
+          console.log("bay");
         }
       }
     } catch (error) {
@@ -69,7 +78,7 @@ function Dashboard() {
   useEffect(() => {
     if (user || responseInfo.length > 0) orderShow();
   }, [user, responseInfo]);
-  const { pendingProducts, allProducts } = adminData;
+  
 
   async function changeStatus(status, order_id) {
     try {
@@ -80,36 +89,36 @@ function Dashboard() {
         order_id,
         status
       );
+      orderShow();//I put this function call
       console.log("changeResult", changeResult);
     } catch (error) {
       console.log("sxal es arel");
     }
   }
 
-    async function uploadImg(file, productId) {
-      try {
-        const token = await getAccessTokenSilently();
-        const responseImg = await imgUpdate(productId, file, token, user.sub);
-        console.log(responseImg);
+  async function uploadImg(file, productId) {
+    try {
+      const token = await getAccessTokenSilently();
+      const responseImg = await imgUpdate(productId, file, token, user.sub);
+      console.log(responseImg);
 
-        if (responseImg.httpStatus && responseImg.httpStatus==="OK") {
-          
-          setResponseInfo(responseImg.message);
-        }
-      } catch (error) {
-        console.log("something went wrong", error);
+      if (responseImg.httpStatus && responseImg.httpStatus === "OK") {
+        setResponseInfo(responseImg.message);
       }
-
-      console.log("file", file);
+    } catch (error) {
+      console.log("something went wrong", error);
     }
 
-    function  handleDismiss() {
-      setResponseInfo("")
-    }
+    console.log("file", file);
+  }
 
+  function handleDismiss() {
+    setResponseInfo("");
+  }
+  console.log("adminData", adminData);
   return (
     <div className="dashboard ui container">
-      {responseInfo.length > 0 ? (
+      {responseInfo.length > 0 && responseInfo === "something went wrong"  ? (
         <Message success onDismiss={handleDismiss} content={responseInfo} />
       ) : (
         ""
@@ -120,14 +129,19 @@ function Dashboard() {
         <>
           <AddProduct setResponseInfo={setResponseInfo} />
           <Tabs
+            pendingOrders={pendingOrders}
             uploadImg={uploadImg}
-            pendingProducts={pendingProducts}
+            unpaidOrders={unpaidOrders}
+            sentOrders={sentOrders}
+            paidOrders={paidOrders}
+            allOrders={allOrders}
+            allDoneOrders={allDoneOrders}
             allProducts={allProducts}
             changeStatus={changeStatus}
           />
         </>
       ) : (
-        <DataTable list={orderList} />
+        <DataTableForUsers list={orderList} />
       )}
     </div>
   );

@@ -1,14 +1,46 @@
-.ui.image.product-icon{
-    width: auto;
+.ui.avatar.image.product-icon{
+    width: 50px;
+    height: auto;
+    border-radius: 20%;
+}
+/* .ui.avatar.image{
+    border-radius: 0%; 
+} */
+.grid-table{
     height: 90px;
-     
-    }
-
-.grid-table {
-    position: relative;
+}
+.upload{
+   border: none;
+   background: none;
+   color: green;
+   cursor: pointer;
+}
+.icon.iconUpload{
+   font-size: 20px;
+}
+input[type=file] {
+    display: none;
+}
+.productId{
+    font-family: "Libre Baskerville", serif;
 }
 
-.grid-table>.row{
-    height: 120px;
+.ui.button.buyBtn{
+    /* left: 40%; */
+    margin-bottom: 30px;
 }
-
+.price{
+    font-size: 14px;
+    font-weight: 900;
+    font-style: italic;
+    color: black;
+}
+.orderDate{
+    font-size: 8px;
+}
+.tooltip{
+  /* border-radius: 100px; */
+  opacity: 0.7;
+  /* padding: '2em'; */
+ /* font-size: '0.5em'; */
+}

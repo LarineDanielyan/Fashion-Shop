@@ -19,20 +19,26 @@ function Footer() {
               <Grid.Column width={3}>
                 <Header inverted as="h4" content="Services" />
                 <List link inverted>
-                  <List.Item as="a">Banana Pre-Order</List.Item>
-                  <List.Item as="a">DNA FAQ</List.Item>
+                  <List.Item as="a"></List.Item>
+                  <List.Item as="a"></List.Item>
                   <List.Item as="a">How To Access</List.Item>
                   <List.Item as="a">Favorite X-Men</List.Item>
                 </List>
               </Grid.Column>
               <Grid.Column width={7}>
                 <Header as="h4" inverted>
-                  Footer Header
+                  Service
                 </Header>
-                <p>
-                  Extra space for a call to action inside the footer that could
-                  help re-engage users.
-                </p>
+                <p>Payment by card during delivery/only in Yerevan /</p>
+                <h5>Cash payment terms:</h5>
+                <h6>
+                  Cash payment is made immediately upon receipt of the order.
+                  Our employee has the right not to deliver the goods to the
+                  customer if the customer offers to delay payment. Dollar և
+                  other foreign exchange rates are not accepted (in accordance
+                  with the RA Code). The prices of the goods offered on the site
+                  are final և include all types of taxes.
+                </h6>
               </Grid.Column>
             </Grid.Row>
           </Grid>

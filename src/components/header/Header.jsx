@@ -5,6 +5,7 @@ import { Link, Outlet } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import "./Header.css";
 import { nanoid } from "nanoid";
+import logo from "../../img/logo.jpg"
 
 const AppMedia = createMedia({
   breakpoints: {
@@ -36,7 +37,7 @@ const NavBarMobile = (props) => {
       <Sidebar.Pusher dimmed={visible} onClick={onPusherClick}>
         <Menu fixed="top" inverted>
           <Menu.Item key={nanoid()}>
-         <Image size="mini" src="https://react.semantic-ui.com/logo.png" />
+        {/* <Image as={Link} to="/" size="mini"  src={logo} className="logoIcon"  /> */}
           </Menu.Item>
           <Menu.Item onClick={onToggle} key={nanoid()}>
             <Icon name="sidebar" />
@@ -67,7 +68,7 @@ const NavBarDesktop = (props) => {
   return (
     <Menu fixed="top" inverted>
       <Menu.Item key={nanoid()}>
-        <Image size="mini" src="../../../logo.jpg" />
+      {/* <Image as={Link} to="/" size="mini"  src={logo} className="logoIcon" /> */}
       </Menu.Item>
 
       {leftItems.map((item, index) => (

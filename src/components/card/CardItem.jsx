@@ -29,12 +29,8 @@ function CardItem({ description, image, name, price, item }) {
             BUY
           </Button>
         )}
-        {/* <a>
-              <Icon name='user' />
-              22 Friends
-            </a> */}
       </Card.Content>
     </Card>
   );
 }
- export default CardItem;
+export default CardItem;

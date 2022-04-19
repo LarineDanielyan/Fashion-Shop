@@ -2,21 +2,22 @@
     display: flex;
     background-color:white;
     justify-content: center;
-
 }
 .ui.card {
     margin: 0;
     align-items: center;
-
 }
-
-.productItems.ui.grid {
+.productItems.ui.grid{
     margin: 2vh;
     gap: 20px;
-  }
-
-.ui.card>.image,
- .ui.cards>.card>.image {
+}
+.ui.card>.image, .ui.cards>.card>.image {
     width: 100px;
     background:none;
+}
+.pagination-container{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

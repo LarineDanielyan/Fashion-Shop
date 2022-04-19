@@ -1,7 +1,6 @@
-.ui.fixed.menu.top {
-    background-color: rgba(150, 128, 3, 0.626);
-}
-
+/* .ui.fixed.menu.top {
+   // background-color: #E9967A;
+} */
 .customHeader, .pusher {
     height: 60px;
 }
@@ -11,4 +10,10 @@
     height: auto;
     font-size: .78571429rem;
     border-radius: 50%;
+}
+.pushable {
+    overflow-x: visible;
+    }
+.logoIcon{
+    border-radius: 2px;
 }

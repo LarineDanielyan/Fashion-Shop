@@ -16,7 +16,7 @@ export async function getOrders(user_id, token) {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
-        user_id: user_id,
+        userId: user_id,
       },
     });
     return await response.json();
@@ -31,7 +31,7 @@ export async function getAllOrders(user_id, token) {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
-        user_id: user_id,
+        userId: user_id,
       },
     });
     return await response.json();
@@ -39,14 +39,13 @@ export async function getAllOrders(user_id, token) {
     console.log("wrong", error);
   }
 }
-
 export async function getOrderByStatus(user_id, token, status) {
   try {
     const response = await fetch(`${apiURL}order/user-order`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
-        user_id: user_id,
+        userId: user_id,
         status: status,
       },
     });
@@ -55,6 +54,7 @@ export async function getOrderByStatus(user_id, token, status) {
     console.log("wrong", error);
   }
 }
+
 
 export async function changeOrderStatus(user_id, token, order_id, status) {
   console.log("order_id", order_id);
@@ -66,7 +66,7 @@ export async function changeOrderStatus(user_id, token, order_id, status) {
         method: "PUT",
         headers: {
           Authorization: `Bearer ${token}`,
-          user_id: user_id,
+          userId: user_id,
         },
       }
     );
@@ -85,18 +85,22 @@ export async function authoriseUser(user, token) {
       headers: {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json;charset=utf-8",
-       
       },
+     
       body: JSON.stringify({
         id,
         name,
         email,
         picture,
       }),
+      
     });
     return response.json();
-  } catch (error) {
-    console.log("sxalPost", error);
+    
+  }
+
+   catch (error) {
+    console.log("wrong post", error);
   }
 }
 export async function confirmOrder(user, product, token, option) {
@@ -125,7 +129,7 @@ export async function confirmOrder(user, product, token, option) {
     });
     return response.json();
   } catch (error) {
-    console.log("sxalPost", error);
+    console.log("Wrong post", error);
   }
 }
 
@@ -142,7 +146,7 @@ export async function confirmAddProduct(productObj, userId, token) {
     });
     return response.json();
   } catch (error) {
-    console.log("sxalPost", error);
+    console.log("Wrong Post", error);
   }
 }
 
@@ -171,6 +175,7 @@ export async function imgUpdate(productId, file, token, userId) {
     });
     return response.json();
   } catch (error) {
-    console.log("sxalPost", error);
+    console.log("Wrong", error);
   }
 }
+

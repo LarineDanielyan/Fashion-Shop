@@ -1,83 +1,126 @@
-
-import productImg from "../../img/img1.jpg";
+import { useState, useEffect, Fragment } from "react";
 import "./dataTable.css";
 import { nanoid } from "nanoid";
-import { Grid, Segment, List, Image, Dropdown, Item } from "semantic-ui-react";
-import "./dataTable.css";
-import { useState, useEffect } from "react";
-
-
-
-
-
+import logo from "../../img/logo.jpg"
+import {
+  Grid,
+  Segment,
+  List,
+  Image,
+  Pagination,
+  Dropdown,
+  Item,
+  Button,
+  Icon,
+  Input,
+} from "semantic-ui-react";
 function DataTable({ list, uploadImg }) {
   const [imgFile, setImgFile] = useState();
+  const [productsByPage, setProductsByPage] = useState([]);
+  const [start, setStart] = useState(0);
+  const [result, setResult] = useState([]);
+  const pageDevider = 5;
 
-  console.log(list);
   function onChange(e) {
-console.log(e.target.files);
+    console.log(e.target.files);
     setImgFile(e.target.files[0]);
-    
-
   }
-  useEffect(()=>{
+  useEffect(() => {
+    if (list && list.length > 0) setResult(list);
+  }, [list]);
+
+  useEffect(() => {
     console.log(imgFile);
-  },[imgFile])
-  
+  }, [imgFile]);
+  useEffect(() => {
+    if (result && result.length > 0)
+      setProductsByPage(result.slice(start, start + pageDevider));
+  }, [start, result]);
 
-  // function onFormSubmit() {
-
-  // }
+  console.log("result", list);
+  function goToPage(e, data) {
+    console.log(data.activePage);
+    setStart(data.activePage * pageDevider - pageDevider);
+  }
+  console.log("",productsByPage)
   return (
     <>
-      {list &&
-        list.length > 0 &&
-        list.map((item) => {
-                  return (
-                    <Grid className="grid-table" key={nanoid()}>
-                      <Grid.Row>
-                        <Grid.Column width="2">
-                          <Segment.Inline>{item.id}</Segment.Inline>
-                        </Grid.Column>
-                        <Grid.Column width="5">
-                          <Segment.Inline>
-                            <Image
-                              avatar
-                              className="product-icon"
-                              src={item.img[0]?.imagePath || productImg}
+      {productsByPage &&
+        productsByPage.length > 0 &&
+        productsByPage.map((item) => {
+          return (
+            <Grid className="grid-table" key={nanoid()}>
+              <Grid.Row>
+                {/* <Grid.Column width="2">
+                  <Segment.Inline>{item.id}</Segment.Inline>
+                </Grid.Column> */}
+                <Grid.Column width="5">
+                  <Segment.Inline>
+                    <Image
+                      avatar
+                      className="product-icon"
+                      src={
+                        item.img[item.img.length - 1]?.imagePath || logo
+                      }
+                    />
+
+                    <Segment.Inline>{item.name}</Segment.Inline>
+                    <Segment.Inline>
+                      {item.price}
+                      <span className="currency">{item.currency}</span>
+                    </Segment.Inline>
+                  </Segment.Inline>
+                </Grid.Column>
+                <Grid.Column width="4" className="image-upload-form">
+                  <Segment.Inline >
+                    {/* <List.Content > */}
+                      {/* <List.Header > </List.Header> */}
+
+                      <form 
+                        onSubmit={(e) => {
+                          e.preventDefault();
+                          uploadImg(imgFile, item.id);
+                        }}
+                      >
+                        {/* <Segment.Inline> */}
+                          <label htmlFor="file-input" className="img-icon">
+                            <Icon
+                              className="btn-icon"
+                              color="green"
+                              name="images"
                             />
-                          </Segment.Inline>
-                        </Grid.Column>
-                        <Grid.Column width="9">
-                          <Segment.Inline>
-                            <List.Content>
-                              <List.Header>{item.name} </List.Header>
-                              {item.price}
-                              <Segment.Inline>
-                                "item.orderStatus"
-                              </Segment.Inline>
-                              <form
-                                onSubmit={(e) => {
-                                  e.preventDefault();
-                                  uploadImg(imgFile, item.id);
-                                }}
-                              >
-                                <input type="file" onChange={onChange} />
-                                <button type="submit">Upload!</button>
-                              </form>
-                            </List.Content>
-                          </Segment.Inline>
-                        </Grid.Column>
-                        
-                      </Grid.Row>
-                    </Grid>
-                  );
+                          </label>
+                          <input
+                            type="file"
+                            id="file-input"
+                            onChange={onChange}
+                          />
+                          <Button className="btn-upload" type="submit">
+                            <Icon
+                              className="btn-icon"
+                              color="green"
+                              name="upload"
+                            />
+                          </Button>
+                        {/* </Segment.Inline> */}
+                      </form>
+                    {/* </List.Content> */}
+                  </Segment.Inline>
+                </Grid.Column>
+              </Grid.Row>
+            </Grid>
+          );
         })}
+      <div className="pagination-container">
+        {/* semantic pagination */}
+        <Pagination
+          defaultActivePage={1}
+          secondary
+          onPageChange={goToPage}
+          totalPages={Math.ceil(result.length / pageDevider)}
+        />
+      </div>
     </>
   );
 }
-
-
-
 export default DataTable;
-
