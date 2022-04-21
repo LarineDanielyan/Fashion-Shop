@@ -1,7 +1,7 @@
 import { nanoid } from "nanoid";
 import { useEffect, useState } from "react";
 import { Grid, Segment, List, Image, Dropdown, Popup } from "semantic-ui-react";
-import logo from "../../img/logo.jpg";
+import logo from "../../img/logo.png";
 import "./dataTable.css";
 
 function PendingTable({ list, changeStatus, tabName }) {

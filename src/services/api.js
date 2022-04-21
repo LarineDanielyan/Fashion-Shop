@@ -178,4 +178,20 @@ export async function imgUpdate(productId, file, token, userId) {
     console.log("Wrong", error);
   }
 }
+export async function isUserExists(userId, token) {
+   
+  try {
+    const response = await fetch(`${apiURL}user/user-id`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json;charset=utf-8",
+        userId: userId,
+      }
+    });
+    return response.json();
+  } catch (error) {
+    console.log("Wrong Post", error);
+  }
+}
 

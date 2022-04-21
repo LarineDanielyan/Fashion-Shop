@@ -1,4 +1,4 @@
-.ui.fixed.menu.top {
+/* .ui.fixed.menu.top {
     background-color: #495e4a;
 }
 .customHeader, .pusher {
@@ -18,10 +18,42 @@
     height: auto;
     font-size: .78571429rem;
     border-radius: 50%;
-}
+} */
 /* .pushable {
     overflow-x: visible;
     } */
-.logoIcon{
-    border-radius: 2px;
+    /* .ui.mini.image.logoIcon{
+        width: 30px;
+        height: auto;
+        font-size: .78571429rem;
+        border-radius: 50%;
+    } */
+
+    .ui.fixed.menu.top,
+.ui.sidebar.menu {
+  background-color: #495e4a;
+}
+
+.customHeader {
+  height: 60px;
+}
+
+#left-pusher.pusher {
+  height: 100%;
+}
+
+.customHeader .pushable {
+  position: fixed;
+  z-index: 101;
+  margin: 0;
+  width: 100%;
+  height: auto;
+  overflow-x: visible;
+}
+
+#left-pusher .menu {
+  top: 60px;
+  width: 120px;
+  height: auto !important;
+  max-height: inherit;
 }

@@ -1,39 +1,49 @@
 import { nanoid } from "nanoid";
 import { useEffect, useState } from "react";
-import { Grid, Segment, List, Image, Dropdown, Popup } from "semantic-ui-react";
-import logo from "../../img/logo.jpg";
+import { Grid, Segment, List, Image, Dropdown, Popup,Pagination } from "semantic-ui-react";
+import logo from "../../img/logo.png";
 import "./dataTable.css";
-// import Pagination from "../pagination/Pagination";
+
 
 
 function UserOrdersTable({list}){
-  console.log("list tabsi hamar ", list);
-  // const [result, setResult] = useState([]);
-  // const [productsByPage, setProductsByPage] = useState([]);
+  const [result, setResult] = useState([]);
+  const [productsByPage, setProductsByPage] = useState([]);
+  const [start, setStart] = useState(0);
+  const pageDevider = 4;
+  
+  function getProductsByPage(productsByPage){
+    setProductsByPage(productsByPage)
+  }
 
-  // function getProductsByPage(productsByPage){
-  //   setProductsByPage(productsByPage)
-  // }
+  useEffect(() =>{
+    if (list && list.length > 0) setResult(list)
+  }, [start,list])
 
-  // useEffect(() =>{
-  //   if (list && list.length > 0) setResult(list)
-  // }, [productsByPage, list])
+  useEffect(() => {
+    if(result) getProductsByPage(result.slice(start, start + pageDevider));
+  }, [start, result]); 
 
-  // console.log("productsByPage ", productsByPage);
+  function goToPage(e, data) {
+    console.log(data.activePage);
+    setStart(data.activePage * pageDevider - pageDevider);
+  }
+
   return(
     <>
-    {list &&
-      list.length > 0 &&
-      list.map((item) => {
+    {productsByPage &&
+      productsByPage.length > 0 &&
+      productsByPage.map((item) => {
         return (
-            <Popup
+            <Popup 
+            key={nanoid()}
             inverted
             content={new Date(item.date).toString()}
-            key={item.name}
+          
             header={item.user.name}
             className="tooltip"
             trigger={
-              <Grid className="grid-table" key={nanoid()}>
+              <Grid className="grid-table" >
               <Grid.Row>
                 <Grid.Column width="3">
                   <Segment.Inline 
@@ -70,14 +80,14 @@ function UserOrdersTable({list}){
             />
         );
       })}
-       {/* <div className="pagination-container">
+       <div className="pagination-container">
         <Pagination
           defaultActivePage={1}
           secondary
           onPageChange={goToPage}
           totalPages={Math.ceil(result.length / pageDevider)}
         />
-      </div> */}
+      </div>
   </>
   )
 }

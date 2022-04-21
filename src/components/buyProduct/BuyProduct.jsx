@@ -4,9 +4,9 @@ import BuyForm from "./BuyForm";
 import "./BuyProduct.css";
 import { confirmOrder } from "../../services/api";
 import { useAuth0 } from "@auth0/auth0-react";
-import logo from "../../img/logo.jpg"
+import logo from "../../img/logo.png"
 
-function BuyProduct({ productInfo, item }) {
+function BuyProduct({ productInfo, item,setResponseInfo }) {
   const { error, isAuthenticated, isLoading, user, getAccessTokenSilently } =
     useAuth0();
 
@@ -26,49 +26,42 @@ function BuyProduct({ productInfo, item }) {
         picture: user.picture,
       };
       const orderStatus = await confirmOrder(userObj, item, token, options);
+      setResponseInfo("comfirmOrder")
       console.log(orderStatus);
     } catch (error) {
       console.log(error);
     }
   }
   useEffect(()=>{
-    resetOptions()
-  },[open])
-  useEffect(() => {
-    console.log("disable",disable)
+    if(open=== false){
+    resetOptions();
+  }
     let status = false;
     for(let key in options){
-      console.log(key,options[key]);
-      if(!options[key] ){
+      if(!options[key]&& key !== "paymentMethod"  ){
         status = true;
       }
     }
       setDisable(status);
-  }, [options]);
+  }, [options,open]);
 
   function resetOptions(){
     for(let key in options){
-      console.log(key,options[key]);
       if(key != "paymentMethod" ){
         options[key]="";
       }
     }
   }
   function changeOptions(prop) {
-    console.log("prop", prop);
     setOptions({ ...options, ...prop });
-    console.log("options", options);
+
   }
-console.log("image",image)
   return (
     <Modal
       className="custom-modal"
       onClose={() => setOpen(false)}
-      onOpen={() =>{
-        // setDisable(true)
-        setOpen(true)
-      
-      } }
+      onOpen={() =>setOpen(true)
+      } 
       open={open}
       trigger={
         <Button color="green" inverted floated="right">
@@ -102,9 +95,7 @@ console.log("image",image)
               labelPosition="right"
               icon="checkmark"
               onClick={() => {
-                debugger
                 setOpen(false);
-                // setDisable(true);
                 confirmAction();
               }}
               positive

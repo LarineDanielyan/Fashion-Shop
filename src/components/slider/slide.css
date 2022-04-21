@@ -26,14 +26,14 @@ img {
 }
 .slideImg img{
     position: relative;
-    top: 50%;
+    top: 49%;
     transform: translateY(-50%);
     width: 200%;
     }
 /* .slideImg{
     z-index: -1;
 } */
-.slideText{
+/* .slideText{
     width: 30%;
     margin-bottom: 300px;
     margin-right: 200px;
@@ -42,8 +42,8 @@ img {
     position: relative;
     top: 50%;
     transform: translateY(-50%);
-    width: 100%
- }
+    width: 100% */
+ /* } */
   #slide .ui.button{
     background: none;
     z-index: 100;

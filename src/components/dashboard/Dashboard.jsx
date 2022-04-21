@@ -21,7 +21,6 @@ import {
   PENDING,
   SENT,
   DONE,} from "../../services/constants";
-import DataTable from "../dataTable/DataTable";
 import UserOrdersTable from "../dataTable/UserOrdersTable"; 
 
 function Dashboard() {
@@ -32,6 +31,7 @@ function Dashboard() {
   const [responseInfo, setResponseInfo] = useState("");
   const { allProducts,  unpaidOrders,  sentOrders, paidOrders, allDoneOrders , allOrders,pendingOrders } = adminData;
  
+  console.log("res",responseInfo)
   async function orderShow() {
     try {
       const token = await getAccessTokenSilently();
@@ -79,6 +79,7 @@ function Dashboard() {
     if (user || responseInfo.length > 0) orderShow();
   }, [user, responseInfo]);
   
+  
 
   async function changeStatus(status, order_id) {
     try {
@@ -118,7 +119,9 @@ function Dashboard() {
   console.log("adminData", adminData);
   return (
     <div className="dashboard ui container">
-      {responseInfo.length > 0 && responseInfo === "something went wrong"  ? (
+
+      
+      {responseInfo && responseInfo.length > 0 ? (
         <Message success onDismiss={handleDismiss} content={responseInfo} />
       ) : (
         ""
@@ -138,6 +141,7 @@ function Dashboard() {
             allDoneOrders={allDoneOrders}
             allProducts={allProducts}
             changeStatus={changeStatus}
+            setResponseInfo={setResponseInfo}
           />
         </>
       ) : (

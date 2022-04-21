@@ -1,7 +1,7 @@
 import { useState, useEffect, Fragment } from "react";
 import "./dataTable.css";
 import { nanoid } from "nanoid";
-import logo from "../../img/logo.jpg"
+import logo from "../../img/logo.png"
 import {
   Grid,
   Segment,
@@ -48,9 +48,8 @@ function DataTable({ list, uploadImg }) {
     {list &&
       list.length > 0 &&
       list.map((item) => {
-        console.log(item);
+
         return (
-          <>
             <Grid className="grid-table" key={nanoid()}>
               <Grid.Row>
                 <Grid.Column width="2">
@@ -101,7 +100,7 @@ function DataTable({ list, uploadImg }) {
                 </Grid.Column>
               </Grid.Row>
             </Grid>
-          </>
+ 
         );
       })}
        <div className="pagination-container">

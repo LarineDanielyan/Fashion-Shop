@@ -36,6 +36,7 @@ const FormFieldError = ({ userName, changeOptions }) => {
         label="Phone number"
         placeholder="Phone number"
         name="phone"
+        type="number"
         onChange={(e) => handleChange(e)}
       />
 
@@ -51,7 +52,6 @@ const FormFieldError = ({ userName, changeOptions }) => {
       <Form.Field>
         <Radio label="Pay Buy Card" name="card" value="card" readOnly />
       </Form.Field>
-      {/* </Form.Group> */}
     </Form>
   );
 };

@@ -3,8 +3,8 @@ import { Button, Pagination } from "semantic-ui-react";
 import { getData, getProducts } from "../../services/api";
 import CardItem from "./CardItem";
 import "./cards.css";
-
-const Cards = ({ pageDevider }) => {
+import logo from "../../img/logo.png"
+const Cards = ({ pageDevider ,setResponseInfo}) => {
   const [result, setResult] = useState([]);
   const [productsByPage, setProductsByPage] = useState([]);
   const [start, setStart] = useState(0);
@@ -35,21 +35,22 @@ const Cards = ({ pageDevider }) => {
               item={item}
               key={item.id}
               description={item?.description.comment || ""}
-              image={item.img[0].imagePath}
+              image={item && item.img[0] ? item.img[0].imagePath:logo}
               name={item.name}
               price={item.price}
+              setResponseInfo={setResponseInfo}
             />
           );
         })}
 
       <div className="pagination-container">
-        {/* semantic pagination */}
+      {result && result.length > pageDevider? 
         <Pagination
           defaultActivePage={1}
           secondary
           onPageChange={goToPage}
           totalPages={Math.ceil(result.length / pageDevider)}
-        />
+        />:""}
       </div>
     </div>
   );
