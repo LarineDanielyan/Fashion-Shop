@@ -1,6 +1,6 @@
 .App {
   text-align: center;
-  background-color: rgba(208, 203, 197, 0.348);
+  background-color: rgba(230, 222, 226, 0.524);
 }
 
 .App-logo {
@@ -40,3 +40,6 @@
 .main{
   min-height: calc(100% - 300px);
 }
+/* .home.ui.container{
+  min-height: calc(100vh - 100px);
+} */

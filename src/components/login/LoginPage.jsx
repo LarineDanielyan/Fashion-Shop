@@ -1,5 +1,4 @@
 import { useAuth0 } from "@auth0/auth0-react";
-import { Message } from "semantic-ui-react";
 import "./login.css";
 function LoginButton(){
     const { loginWithRedirect } = useAuth0();
@@ -8,7 +7,6 @@ function LoginButton(){
 function LoginPage(){
     return(
         <div className="main" style={{paddingTop:"100px"}}>
-            <Message className="massage-login" color='green'>Please Subscribe if you want to  buy a product</Message>
 <LoginButton/>
         </div>
     )

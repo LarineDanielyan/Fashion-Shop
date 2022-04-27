@@ -6,8 +6,7 @@ import {Button, Icon} from "semantic-ui-react";
 function Slides({ slides }) {
 
   let [index, setIndex] = useState(0);
-  // let encodeed = slides[0].image;
-  // console.log("encodeed", encodeed)
+
 
   function showPrev(){
 

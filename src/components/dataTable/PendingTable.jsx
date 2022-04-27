@@ -22,15 +22,15 @@ function PendingTable({ list, changeStatus, tabName }) {
             <Popup
               inverted
               content={Date(item.date)}
-              key={item.name}
+              key={nanoid()}
               header={item.user.name}
               className="tooltip"
               trigger={
-                <Grid className="grid-table" key={nanoid()}>
+                <Grid className="grid-table" >
                   <Grid.Row>
                     <Grid.Column width="3">
                       <Segment.Inline className="orderId">
-                        {`Order Number N ${item.id}`}
+                        {`Order  ${item.id}`}
                       </Segment.Inline>
                     </Grid.Column>
                     <Grid.Column width="3">

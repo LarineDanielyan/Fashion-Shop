@@ -1,4 +1,4 @@
-import { useState, useEffect, Fragment } from "react";
+import { useState, useEffect, useRef } from "react";
 import "./dataTable.css";
 import { nanoid } from "nanoid";
 import logo from "../../img/logo.png"
@@ -20,9 +20,10 @@ function DataTable({ list, uploadImg }) {
   const [start, setStart] = useState(0);
   const [result, setResult] = useState([]);
   const pageDevider = 5;
-
-  function onChange(e) {
-    console.log(e.target.files);
+  const selectidId = useRef(null);
+  
+  function onChange(e,id) {
+    selectidId.current = id;
     setImgFile(e.target.files[0]);
   }
   useEffect(() => {
@@ -30,19 +31,18 @@ function DataTable({ list, uploadImg }) {
   }, [list]);
 
   useEffect(() => {
-    console.log(imgFile);
   }, [imgFile]);
+
   useEffect(() => {
+    selectidId.current = null;
     if (result && result.length > 0)
       setProductsByPage(result.slice(start, start + pageDevider));
   }, [start, result]);
 
-  console.log("result", list);
+
   function goToPage(e, data) {
-    console.log(data.activePage);
     setStart(data.activePage * pageDevider - pageDevider);
   }
-  console.log("",productsByPage)
   return (
 <div>
     {list &&
@@ -81,8 +81,33 @@ function DataTable({ list, uploadImg }) {
                           e.preventDefault();
                           uploadImg(imgFile, item.id);
                         }}
-                      >
-                        <label className="upload" htmlFor ="file-input">
+                      ><label
+                      htmlFor={`file-input-${item.id}`}
+                      className="img-icon"
+                    >
+                      <Icon
+                        className="btn-icon"
+                        color="green"
+                        name="images"
+                      />
+                    </label>
+                    <input
+                      type="file"
+                      id={`file-input-${item.id}`}
+                      onChange={(e) => {
+                        onChange(e, item.id);
+                      }}
+                    />
+                    <Button className="btn-upload" type="submit">
+                      <Icon
+                        className="btn-icon"
+                        name="upload"
+                        color={
+                          selectidId.current === item.id ? "green" : "grey"
+                        }
+                      />
+                    </Button>
+                        {/* <label className="upload" htmlFor ="file-input">
                         <Icon className="iconUpload" name="images" />
                         </label>
                         <input
@@ -93,7 +118,7 @@ function DataTable({ list, uploadImg }) {
                         ></input>
                         <button type="submit" className="upload">
                         <Icon className="upload iconUpload" name="upload" />
-                        </button>
+                        </button> */}
                       </form>
                     </List.Content>
                   </Segment.Inline>
