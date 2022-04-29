@@ -3,7 +3,7 @@ import { Tab } from "semantic-ui-react";
 import DataTable from "../dataTable/DataTable";
 import PendingTable from "../dataTable/PendingTable";
 
-const Tabs = ({ pendingProducts, allProducts, changeStatus, uploadImg,pendingOrders}) => {
+const Tabs = ({ pendingProducts, allProducts, changeStatus, uploadImg,pendingOrders,sentOrders,paidOrders,allDoneOrders}) => {
   console.log(pendingProducts);
   const panes = [
     {
@@ -18,7 +18,7 @@ const Tabs = ({ pendingProducts, allProducts, changeStatus, uploadImg,pendingOrd
       menuItem: "Pending",
       render: () => (
         <Tab.Pane>
-          <PendingTable list={pendingOrders} changeStatus={changeStatus} />
+          <PendingTable list={[...pendingOrders,...sentOrders,...paidOrders,...allDoneOrders ]} changeStatus={changeStatus} />
         </Tab.Pane>
       ),
     },

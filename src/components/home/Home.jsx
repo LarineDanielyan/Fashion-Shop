@@ -10,7 +10,7 @@ function Home() {
   function handleDismiss() {
     setResponseInfo("");
   }
-  let countPageProduct = 4;
+  let countPageProduct = 6;
   return (
     // <div className="home ui container">
     //   <Slide slides={slidesData()} />

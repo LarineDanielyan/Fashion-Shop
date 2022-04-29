@@ -7,7 +7,7 @@ function Products() {
   function handleDismiss() {
     setResponseInfo("");
   }
-  let countPageProduct = 4;
+  let countPageProduct = 6;
   return (
     
       // <div className="home ui container">
